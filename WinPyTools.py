@@ -1,3 +1,7 @@
+""" WinPyTools
+(c) Justin Thoreson
+"""
+
 def main():
     print('Hello, world!')
 
