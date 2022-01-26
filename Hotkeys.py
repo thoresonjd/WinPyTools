@@ -60,7 +60,7 @@ class Hotkeys:
 
     def on_scroll(self, x, y, dx, dy):
         if self.current_combo:
-            self.COMBINATIONS[self.current_combo]()
+            self.COMBINATIONS[self.current_combo](dy)
         else:
             print('none')
 

@@ -1,2 +1,2 @@
-def func2():
-    print('func2')
+def func2(scroll_direction : int):
+    print(f'func2: {scroll_direction}')
