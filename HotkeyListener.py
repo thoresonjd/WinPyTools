@@ -1,5 +1,3 @@
-from typing import Any
-from xmlrpc.client import boolean
 from pynput.keyboard import Key, KeyCode, Listener
 import func1, func2
 
