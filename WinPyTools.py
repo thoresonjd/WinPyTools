@@ -8,15 +8,12 @@ https://nitratine.net/blog/post/how-to-make-hotkeys-in-python/
 
 # Import modules
 from pynput.keyboard import Key, KeyCode, Listener
-import func1
-
-def func2():
-    print('func2')
+import func1, func2
 
 # Map functions to hotkey combinations
 COMBINATIONS = {
     frozenset([Key.shift, KeyCode(vk=ord('D'))]): func1.func1,
-    frozenset([Key.shift, KeyCode(vk=ord('L'))]): func2
+    frozenset([Key.shift, KeyCode(vk=ord('L'))]): func2.func2
 }
 
 # Set of currently pressed keys
