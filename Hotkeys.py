@@ -1,7 +1,8 @@
-from pynput.keyboard import Key, KeyCode, Listener
+from pynput.keyboard import Key, KeyCode, Listener as KeyboardListener
+from pynput.mouse import Listener as MouseListener
 import func1, func2
 
-class Keyboard:
+class Hotkeys:
     def __init__(self):
         """ Map hotkey combinations to functions
         Initialiaze the set of currently pressed keys
@@ -11,8 +12,9 @@ class Keyboard:
             frozenset([Key.shift, KeyCode(vk=ord('2'))]): func2.func2
         }
         self.pressed = set()
+        self.current_combo = None
 
-        print('Init keyboard! listener')
+        print('Init keyboard listener')
 
     def get_virtual_key(self, key : Key) -> int:
         """ Get the virtual key code of a key
@@ -39,19 +41,40 @@ class Keyboard:
         virtual_key = self.get_virtual_key(key)
         self.pressed.add(virtual_key)
 
+        # for COMBO in self.COMBINATIONS:
+        #     if self.is_hotkey_activated(COMBO):
+        #         self.COMBINATIONS[COMBO]()
+
         for COMBO in self.COMBINATIONS:
             if self.is_hotkey_activated(COMBO):
-                self.COMBINATIONS[COMBO]()
+                self.current_combo = COMBO
 
     def on_release(self, key : Key):
         """ Remove key from set when released
 
         :param key: The key that is released
         """
+        self.current_combo = None
         virtual_key = self.get_virtual_key(key)
         self.pressed.remove(virtual_key)
 
+    def on_scroll(self, x, y, dx, dy):
+        if self.current_combo:
+            self.COMBINATIONS[self.current_combo]()
+        else:
+            print('none')
+
     def listen(self):
-        """ Listen for keyboard input """
-        with Listener(on_press = self.on_press, on_release = self.on_release, IS_TRUSTED = True) as listener:
-            listener.join()
+        """ Listen for device input """
+
+        # Init threads
+        keyboard_listener = KeyboardListener(on_press = self.on_press, on_release = self.on_release, IS_TRUSTED = True)
+        mouse_listener = MouseListener(on_scroll=self.on_scroll, IS_TRUSTED = True)
+
+        # Start threads
+        keyboard_listener.start()
+        mouse_listener.start()
+
+        # Join threads
+        keyboard_listener.join()
+        mouse_listener.join()

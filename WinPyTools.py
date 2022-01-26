@@ -8,11 +8,11 @@ https://nitratine.net/blog/post/how-to-make-hotkeys-in-python/
 """
 
 # Import modules
-from Keyboard import Keyboard as Listener
+from Hotkeys import Hotkeys
 
 def main():
-    keyboard = Listener()
-    keyboard.listen()
+    hotkey_program = Hotkeys()
+    hotkey_program.listen()
 
 if __name__ == '__main__':
     main()
