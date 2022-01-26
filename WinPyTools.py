@@ -3,15 +3,16 @@
 Created on 26 January 2022
 
 Sources:
+https://pypi.org/project/pynput/
 https://nitratine.net/blog/post/how-to-make-hotkeys-in-python/
 """
 
 # Import modules
-from HotkeyListener import HotkeyListener
+from Keyboard import Keyboard as Listener
 
 def main():
-    listener = HotkeyListener()
-    listener.listen()
+    keyboard = Listener()
+    keyboard.listen()
 
 if __name__ == '__main__':
     main()
