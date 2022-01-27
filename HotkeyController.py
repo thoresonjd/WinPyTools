@@ -8,12 +8,11 @@ class HotkeyController:
         """ Map hotkey combinations to functions
         Initialiaze the set of currently pressed keys
         """
-
         tools = Tools()
         self.COMBINATIONS = {
             frozenset([Key.shift, KeyCode(vk=ord('C'))]): tools.change_cursor,
             frozenset([Key.shift, KeyCode(vk=ord('V'))]): tools.change_volume,
-            # frozenset([Key.shift, KeyCode(vk=ord('B'))]): tools.change_brightness
+            frozenset([Key.shift, KeyCode(vk=ord('B'))]): tools.change_brightness
         }
         self.pressed = set()
         self.current_combo = None
@@ -70,7 +69,6 @@ class HotkeyController:
         :param dx: Horizontal scroll
         :param dy: Vertical scroll
         """
-
         if self.current_combo:
             self.COMBINATIONS[self.current_combo](dy)
 

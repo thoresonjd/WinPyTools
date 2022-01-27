@@ -1,8 +1,6 @@
 from pynput.keyboard import Key, Controller
-# import screen_brightness_control as screen
-import win32con
-import win32gui
-import ctypes
+import screen_brightness_control as screen
+import win32con, win32gui, ctypes
 import os
 
 class Tools:
@@ -11,7 +9,6 @@ class Tools:
         """ Read all filenames from cursor directory
         Save original cursor
         """
-
         self.current_cursor = 0
         self.cursors = []
         path = 'C:\\Windows\\Cursors'
@@ -23,15 +20,13 @@ class Tools:
         
     def save_cursor(self):
         """ Save system cursor """
-
         cursor = win32gui.LoadImage(0, 32512, win32con.IMAGE_CURSOR, 
                                     0, 0, win32con.LR_SHARED)
         self.save_system_cursor = ctypes.windll.user32.CopyImage(cursor, win32con.IMAGE_CURSOR, 
                                     0, 0, win32con.LR_COPYFROMRESOURCE)
 
     def restore_cursor(self):
-        """ Restor system cursor"""
-
+        """ Restor system cursor """
         ctypes.windll.user32.SetSystemCursor(self.save_system_cursor, 32512)
         ctypes.windll.user32.DestroyCursor(self.save_system_cursor)
 
@@ -40,7 +35,6 @@ class Tools:
         
         :param scroll_direction: Direction of the mouse scroll wheel
         """
-
         self.current_cursor = (self.current_cursor + scroll_direction) % len(self.cursors)
 
         try:
@@ -56,16 +50,13 @@ class Tools:
         
         :param scroll_direction: Direction of the mouse scroll wheel
         """
-
         def increase():
             """ Increase volume """
-
             keyboard.press(Key.media_volume_up) 
             keyboard.release(Key.media_volume_up)
 
         def decrease():
             """ Decrease volume """
-
             keyboard.press(Key.media_volume_down)
             keyboard.release(Key.media_volume_down)
         
@@ -75,17 +66,15 @@ class Tools:
         elif scroll_direction < 0:
             [decrease() for _ in range(3)]
 
-    # def change_brightness(self, scroll_direction : int):
-    #     """ Increase or decrease screen brightness
+    def change_brightness(self, scroll_direction : int):
+        """ Increase or decrease screen brightness
         
-    #     :param scroll_direction: Direction of the mouse scroll wheel
-    #     """
-
-    #     print(f'func1: {scroll_direction}')
-    #     try:
-    #         current_brightness = screen.get_brightness()
-    #         new_brightness = [brightness + scroll_direction for brightness in current_brightness]
-    #         for i in range(len(new_brightness)):
-    #             screen.set_brightness(new_brightness[i])
-    #     except:
-    #         print('Could not change brightness')
+        :param scroll_direction: Direction of the mouse scroll wheel
+        """
+        try:
+            current_brightness = screen.get_brightness()
+            new_brightness = [brightness + scroll_direction for brightness in current_brightness]
+            for i in range(len(new_brightness)):
+                screen.set_brightness(new_brightness[i])
+        except:
+            print('Could not change brightness')
