@@ -17,8 +17,6 @@ class HotkeyController:
         self.pressed = set()
         self.current_combo = None
 
-        print('Init keyboard listener')
-
     def get_virtual_key(self, key : Key) -> int:
         """ Get the virtual key code of a key
         
