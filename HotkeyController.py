@@ -9,8 +9,9 @@ class HotkeyController:
         Initialiaze the set of currently pressed keys
         """
         self.COMBINATIONS = {
-            frozenset([Key.shift, KeyCode(vk=ord('1'))]): Tools.change_brightness,
-            frozenset([Key.shift, KeyCode(vk=ord('2'))]): Tools.func2
+            frozenset([Key.shift, KeyCode(vk=ord('C'))]): Tools.change_cursor,
+            frozenset([Key.shift, KeyCode(vk=ord('V'))]): Tools.change_volume,
+            frozenset([Key.shift, KeyCode(vk=ord('B'))]): Tools.change_brightness
         }
         self.pressed = set()
         self.current_combo = None
@@ -62,8 +63,6 @@ class HotkeyController:
     def on_scroll(self, x, y, dx, dy):
         if self.current_combo:
             self.COMBINATIONS[self.current_combo](dy)
-        else:
-            print('none')
 
     def listen(self):
         """ Listen for device input """
