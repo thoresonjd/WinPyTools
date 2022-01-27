@@ -1,15 +1,16 @@
 from pynput.keyboard import Key, KeyCode, Listener as KeyboardListener
 from pynput.mouse import Listener as MouseListener
-import func1, func2
+import Tools
 
-class Hotkeys:
+class HotkeyController:
+
     def __init__(self):
         """ Map hotkey combinations to functions
         Initialiaze the set of currently pressed keys
         """
         self.COMBINATIONS = {
-            frozenset([Key.shift, KeyCode(vk=ord('1'))]): func1.func1,
-            frozenset([Key.shift, KeyCode(vk=ord('2'))]): func2.func2
+            frozenset([Key.shift, KeyCode(vk=ord('1'))]): Tools.change_brightness,
+            frozenset([Key.shift, KeyCode(vk=ord('2'))]): Tools.func2
         }
         self.pressed = set()
         self.current_combo = None

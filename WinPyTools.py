@@ -8,10 +8,10 @@ https://nitratine.net/blog/post/how-to-make-hotkeys-in-python/
 """
 
 # Import modules
-from Hotkeys import Hotkeys
+from HotkeyController import HotkeyController
 
 def main():
-    hotkey_program = Hotkeys()
+    hotkey_program = HotkeyController()
     hotkey_program.listen()
 
 if __name__ == '__main__':
