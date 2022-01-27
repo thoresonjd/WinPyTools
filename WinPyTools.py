@@ -13,6 +13,7 @@ from HotkeyController import HotkeyController
 def main():
     hotkey_program = HotkeyController()
     hotkey_program.listen()
+    print("terminated")
 
 if __name__ == '__main__':
     main()

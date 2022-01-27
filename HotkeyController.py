@@ -1,6 +1,6 @@
 from pynput.keyboard import Key, KeyCode, Listener as KeyboardListener
 from pynput.mouse import Listener as MouseListener
-import Tools
+from Tools import Tools
 
 class HotkeyController:
 
@@ -8,10 +8,12 @@ class HotkeyController:
         """ Map hotkey combinations to functions
         Initialiaze the set of currently pressed keys
         """
+
+        tools = Tools()
         self.COMBINATIONS = {
-            frozenset([Key.shift, KeyCode(vk=ord('C'))]): Tools.change_cursor,
-            frozenset([Key.shift, KeyCode(vk=ord('V'))]): Tools.change_volume,
-            frozenset([Key.shift, KeyCode(vk=ord('B'))]): Tools.change_brightness
+            frozenset([Key.shift, KeyCode(vk=ord('C'))]): tools.change_cursor,
+            frozenset([Key.shift, KeyCode(vk=ord('V'))]): tools.change_volume,
+            # frozenset([Key.shift, KeyCode(vk=ord('B'))]): tools.change_brightness
         }
         self.pressed = set()
         self.current_combo = None
@@ -61,6 +63,14 @@ class HotkeyController:
         self.pressed.remove(virtual_key)
 
     def on_scroll(self, x, y, dx, dy):
+        """ Execute functions with scroll as part of the hotkey combination
+        
+        :param x: Horizontal position of mouse cursor
+        :param y: Vertical position of mouse cursor
+        :param dx: Horizontal scroll
+        :param dy: Vertical scroll
+        """
+
         if self.current_combo:
             self.COMBINATIONS[self.current_combo](dy)
 
